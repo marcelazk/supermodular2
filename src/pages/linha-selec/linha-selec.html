@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{dsLinha}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="pageLinhaSelec" style="background-color:#8FB1B1;">
+  <button ion-button full outline icon-start on-click="goToMapa(linha)">
+    <ion-icon name="map"></ion-icon>
+    Consulte o trajeto
+  </button>
+  <button ion-button full outline icon-start>
+    <ion-icon name="text"></ion-icon>
+    Comentários
+  </button>
+  <div class="divisor"></div>
+  <button ion-button full on-click="goToHorarios(linha, 'Semana')">
+    Semana
+  </button>
+  <button ion-button full on-click="goToHorarios(linha, 'Sábado')">
+    Sábado
+  </button>
+  <button ion-button full on-click="goToHorarios(linha, 'Domingo')">
+    Domingo
+  </button>
+</ion-content>

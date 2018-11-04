@@ -13,29 +13,57 @@ import { SlideBoxModule } from '../pages/slide-box/slide-box.module';
 import { WordpressModule } from '../pages/wordpress/wordpress.module';
 import { MyApp } from './app.component';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { firebaseConfig } from '../config';
+import { AuthService } from '../services/auth.service';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
+
+import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+import { LINHASPage } from '../pages/linhas/linhas';
+import { LINHASELECPage } from '../pages/linha-selec/linha-selec';
+import { Horarios } from '../pages/horarios/horarios';
+import { Mapa } from '../pages/mapa/mapa';
+
 @NgModule({
 	declarations: [
-		MyApp
+    MyApp,
+    LoginPage,
+    SignupPage,
+    LINHASPage,
+    LINHASELECPage,
+    Horarios,
+    Mapa
 	],
 	imports: [
 		BrowserModule,
 		HttpModule,
 		IonicModule.forRoot(MyApp),
-		AgmCoreModule.forRoot(),
-
+    AgmCoreModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig.fire),
 		ComponentsModule,
 		GoogleMapsModule,
 		HomeModule,
 		SlideBoxModule,
-		WordpressModule
+    WordpressModule,
+    NgxErrorsModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
-		MyApp
+    MyApp,
+    LoginPage,
+    SignupPage,
+    LINHASPage,
+    LINHASELECPage,
+    Horarios,
+    Mapa
 	],
 	providers: [
 		Config,
-		StatusBar
+    StatusBar,
+    AngularFireAuth,
+    AuthService
 	]
 })
 export class AppModule {
