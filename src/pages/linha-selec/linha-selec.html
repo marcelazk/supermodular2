@@ -6,6 +6,14 @@
   </ion-navbar>
 </ion-header>
 <ion-content padding id="pageLinhaSelec" style="background-color:#8FB1B1;">
+  <div class="divisorFavButton">
+    <button ion-button outline icon-only *ngIf="isFavorito" on-click="deleteFavorito()">
+      <ion-icon name="star"></ion-icon>
+    </button>
+    <button ion-button outline icon-only *ngIf="!isFavorito" on-click="postFavorito(cdLinha, dsLinha)" >
+        <ion-icon name="star-outline"></ion-icon>
+    </button>
+  </div>
   <button ion-button full outline icon-start on-click="goToMapa(linha)">
     <ion-icon name="map"></ion-icon>
     Consulte o trajeto
@@ -16,12 +24,12 @@
   </button>
   <div class="divisor"></div>
   <button ion-button full on-click="goToHorarios(linha, 'Semana')">
-    Semana
+    Dias úteis
   </button>
   <button ion-button full on-click="goToHorarios(linha, 'Sábado')">
-    Sábado
+    Sábados
   </button>
   <button ion-button full on-click="goToHorarios(linha, 'Domingo')">
-    Domingo
+    Domingos e Feriados
   </button>
 </ion-content>

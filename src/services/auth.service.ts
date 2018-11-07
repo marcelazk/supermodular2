@@ -34,6 +34,10 @@ export class AuthService {
     return this.afAuth.auth.signOut();
   }
 
+  getUID() {
+    return this.user.uid;
+  }
+
   // signInWithGoogle() {
 	// 	console.log('Sign in with google');
 	// 	return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());

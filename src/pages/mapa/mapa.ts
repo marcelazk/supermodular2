@@ -1,15 +1,15 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { NavParams } from 'ionic-angular';
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import { NavController } from "ionic-angular";
+import { NavParams } from "ionic-angular";
 
-import leaflet from 'leaflet';
+import leaflet from "leaflet";
 
 @Component({
-  selector: 'page-mapa',
-  templateUrl: 'mapa.html'
+  selector: "page-mapa",
+  templateUrl: "mapa.html"
 })
 export class Mapa {
-  @ViewChild('map')
+  @ViewChild("map")
   mapContainer: ElementRef;
   map: any;
 
@@ -36,10 +36,28 @@ export class Mapa {
         maxZoom: 18
       })
       .addTo(this.map);
-    this.map
-      .locate({
-        setView: true,
-        maxZoom: 30
-      });
+    this.map.locate({
+      setView: true,
+      maxZoom: 30
+    });
+
+    // const xhttp = new XMLHttpRequest();
+    // xhttp.onreadystatechange = function() {
+    //   if (this.readyState === 4 && this.status === 200) {
+    //     let layer = new leaflet.OSM.DataLayer(xml).addTo(this.map);
+    //     this.map.fitBounds(layer.getBounds());
+    //   }
+    // };
+    // xhttp.open("GET", "https://www.openstreetmap.org/api/0.6/relation/4741356", true);
+    // xhttp.send();
+
+    // $.ajax({
+    //   url: 'http://www.openstreetmap.org/api/0.6/node/164979149',
+    //   dataType: 'xml',
+    //   success: function(xml) {
+    //     let layer = new leaflet.OSM.DataLayer(xml).addTo(this.map);
+    //     this.map.fitBounds(layer.getBounds());
+    //   }
+    // });
   }
 }

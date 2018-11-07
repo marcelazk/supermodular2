@@ -18,12 +18,11 @@
   </div>
   <div padding>
     <h2>Favoritos</h2>
-    <ion-list id="FAV-list1">
-      <!-- Mudar para *ngFor quando tiver dados para consumir -->
-      <ion-item color="none" id="FAV-list-item12" on-click="goToLinhaSelec()">
-        Linha Favorita 1
-      </ion-item>
-    </ion-list>
+    <ion-list padding id="fav-list">
+        <ion-item *ngFor="let fav of favoritos" color="none" on-click="goToLinhaSelec(fav.cd_linha)">
+          <p> {{fav.cd_linha}} - {{fav.ds_linha}} </p>
+        </ion-item>
+      </ion-list>
   </div>
 
 

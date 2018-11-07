@@ -8,9 +8,11 @@ import { GoogleMapsPage } from '../google-maps/google-maps.page';
 import { Tile } from './models/tile.model';
 import { InAppBrowserService } from '../../services/in-app-browser.service';
 import { data } from './home-data';
+import { AuthService } from '../../services/auth.service';
 
 import { LINHASPage } from '../linhas/linhas';
 import { LINHASELECPage } from '../linha-selec/linha-selec';
+import { snapshotToArray } from '../linhas/linhas';
 
 import * as firebase from 'Firebase';
 
@@ -21,29 +23,41 @@ import * as firebase from 'Firebase';
 export class HomePage {
 	public tiles: Tile[][];
 
-	private nav: Nav;
+  private nav: Nav;
 
-	constructor(
-		nav: Nav
-	) {
-		this.nav = nav;
+  favoritos = [];
+  ref = firebase.database().ref('favoritos/');
+
+	constructor(nav: Nav, private auth: AuthService) {
+    this.nav = nav;
+    this.ref.orderByChild('uid').equalTo(this.auth.getUID()).on('value', resp => {
+      this.favoritos = [];
+      this.favoritos = snapshotToArray(resp);
+    });
 	}
 
 	public navigateTo(tile) {
 		this.nav.setRoot(tile.component);
   }
 
-  goToLINHAS(params){
+  goToLINHAS(params) {
     if (!params) {
       params = {};
     }
     this.nav.push(LINHASPage);
   }
 
-  goToLinhaSelec(params){
-    if (!params) {
-      params = {};
-    }
-    this.nav.push(LINHASELECPage);
+  goToLinhaSelec(cdLinha) {
+    let linhas = [];
+    const linhasRef = firebase.database().ref('linhas/');
+    linhasRef.orderByChild('cd_linha').equalTo(cdLinha).on('value', resp => {
+      linhas = [];
+      linhas = snapshotToArray(resp);
+
+      const params = {
+        linha: linhas[0]
+      };
+      this.nav.push(LINHASELECPage, params);
+    });
   }
 }
