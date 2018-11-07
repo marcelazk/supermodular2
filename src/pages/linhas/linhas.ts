@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+// import { FormsModule } from '@angular/forms';
 
 import { LINHASELECPage } from '../linha-selec/linha-selec';
 
@@ -12,35 +13,24 @@ import * as firebase from 'Firebase';
 export class LINHASPage {
 
   linhas = [];
+  linhasAux = [];
   ref = firebase.database().ref('linhas/');
 
   constructor(public navCtrl: NavController) {
     this.ref.on('value', resp => {
       this.linhas = [];
+      this.linhasAux = [];
       this.linhas = snapshotToArray(resp);
+      this.linhasAux = snapshotToArray(resp);
     });
   }
 
-  filterItems() {
-    // this.linhas = this.linhas.filter((linha) => {
-    //     return linha.data.title.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1;
-    // });
-  }
-
   filterLinhas() {
-    // var input, filter, ul, li, a, i;
-    // input = document.getElementById("linhas-search");
-    // filter = this.searchLinha.toUpperCase();
-    // ul = document.getElementById("linhas-list");
-    // li = ul.getElementsByTagName("ion-item");
-    // for (i = 0; i < li.length; i++) {
-    //     a = li[i].getElementsByTagName("p")[0];
-    //     if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
-    //         li[i].style.display = "";
-    //     } else {
-    //         li[i].style.display = "none";
-    //     }
-    // }
+    this.linhas = this.linhasAux;
+    this.linhas = this.linhasAux.filter((linha) => {
+        return linha.ds_linha.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1
+          || linha.cd_linha.toString().indexOf(this.searchLinha.toLowerCase()) > -1;
+    });
   }
 
   goToLinhaSelec(linha){

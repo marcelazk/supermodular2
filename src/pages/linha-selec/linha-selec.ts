@@ -5,6 +5,7 @@ import { NavParams } from 'ionic-angular';
 import { Horarios } from '../horarios/horarios';
 import { Mapa } from '../mapa/mapa';
 import { snapshotToArray } from '../linhas/linhas';
+import { Comentarios } from '../comentarios/comentarios';
 
 import { AuthService } from '../../services/auth.service';
 import * as firebase from 'Firebase';
@@ -59,6 +60,13 @@ export class LINHASELECPage {
     this.navCtrl.push(Mapa, params);
   }
 
+  goToComentarios(linha) {
+    const params = {
+      linha: linha
+    };
+    this.navCtrl.push(Comentarios, params);
+  }
+
   postFavorito(cdLinha, dsLinha) {
     const postData = {
       cd_linha: cdLinha,
@@ -75,8 +83,6 @@ export class LINHASELECPage {
   }
 
   deleteFavorito() {
-    return firebase.database().ref('favoritos/' + this.keyFavorito).remove().then(() => {
-      this.navCtrl.setRoot(this.navCtrl.getActive().component);
-    });
+    return firebase.database().ref('favoritos/' + this.keyFavorito).remove();
   }
 }

@@ -14,9 +14,6 @@ export class Horarios {
   dsLinha = null;
   horariosAux = null;
   horarios = [];
-  //listHorSemana = null;
-  //listHorSabado = null;
-  //listHorDomingo = null;
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
     this.linha = navParams.data.linha;
@@ -36,10 +33,6 @@ export class Horarios {
 
     this.horarios = [];
     this.horarios = Object.keys(this.horariosAux).map(key => this.horariosAux[key]);
-
-    //this.listHorSemana = this.linha.horarios.semana;
-    //this.listHorSabado = this.linha.horarios.sabado;
-    //this.listHorDomingo = this.linha.horarios.domingo;
   }
 
 

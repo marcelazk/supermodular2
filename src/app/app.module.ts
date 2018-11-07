@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { StatusBar } from '@ionic-native/status-bar';
 import { IonicApp, IonicModule } from 'ionic-angular';
 import { Config } from '../config';
+import { FormsModule } from '@angular/forms';
 
 import { ComponentsModule } from '../pages/components/components.module';
 import { GoogleMapsModule } from '../pages/google-maps/google-maps.module';
@@ -25,6 +26,7 @@ import { LINHASPage } from '../pages/linhas/linhas';
 import { LINHASELECPage } from '../pages/linha-selec/linha-selec';
 import { Horarios } from '../pages/horarios/horarios';
 import { Mapa } from '../pages/mapa/mapa';
+import { Comentarios } from '../pages/comentarios/comentarios';
 
 @NgModule({
 	declarations: [
@@ -34,7 +36,8 @@ import { Mapa } from '../pages/mapa/mapa';
     LINHASPage,
     LINHASELECPage,
     Horarios,
-    Mapa
+    Mapa,
+    Comentarios
 	],
 	imports: [
 		BrowserModule,
@@ -47,7 +50,8 @@ import { Mapa } from '../pages/mapa/mapa';
 		HomeModule,
 		SlideBoxModule,
     WordpressModule,
-    NgxErrorsModule
+    NgxErrorsModule,
+    FormsModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -57,7 +61,8 @@ import { Mapa } from '../pages/mapa/mapa';
     LINHASPage,
     LINHASELECPage,
     Horarios,
-    Mapa
+    Mapa,
+    Comentarios
 	],
 	providers: [
 		Config,

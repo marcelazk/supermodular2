@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{dsLinha}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding style="background-color:#8FB1B1;">
+  <ion-list padding id="comentarios-list">
+    <ion-item *ngFor="let coment of comentarios" color="none">
+      <h2>{{coment.ds_comentario}}</h2>
+      <p>{{coment.dt_comentario}}</p>
+    </ion-item>
+  </ion-list>
+
+  <ion-input type="text" placeholder="Digite seu comentário"></ion-input>
+</ion-content>
+
