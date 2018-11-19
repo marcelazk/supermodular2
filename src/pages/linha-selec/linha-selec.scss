@@ -1,3 +1,14 @@
+ion-item.selectors {
+  ion-label {
+    min-width: 40%;
+    font-size: 90%;
+  }
+
+  ion-select {
+    min-width: 60%;
+  }
+}
+
 .divisor {
   width: 100%;
   height: 10%;
@@ -12,30 +23,8 @@
   text-align: center;
 }
 
-.favButton {
-  color: gold;
-}
-
-.noFavButton {
-  color: black;
-}
-
-.comentButton {
-  color: black;
-}
-
-.mapButton {
-  color: black;
-}
-
-ion-item.selectors {
-  ion-label {
-    min-width: 40%;
-    font-size: 90%;
-  }
-  ion-select {
-    min-width: 60%;
-  }
+.header-linha-selec {
+  text-align: center;
 }
 
 

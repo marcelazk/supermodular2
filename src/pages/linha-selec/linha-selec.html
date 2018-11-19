@@ -1,9 +1,9 @@
 <ion-header>
-  <ion-navbar> <ion-title> Blumenau Bus </ion-title> </ion-navbar>
+  <ion-navbar> <ion-title></ion-title> </ion-navbar>
 </ion-header>
 <ion-content padding id="pageLinhaSelec">
-  <div>
-    <h3>{{ dsLinha }}</h3>
+  <div padding-vertical class="header-linha-selec">
+    <h4>{{ dsLinha }}</h4>
   </div>
   <div class="divisorButtons">
     <button
@@ -31,16 +31,7 @@
       <ion-icon class="comentButton" name="text"></ion-icon>
     </button>
   </div>
-  <!-- <div class="divisor"></div>
-  <button ion-button full on-click="goToHorarios(linha, 'Dias Úteis')">
-    Dias úteis
-  </button>
-  <button ion-button full on-click="goToHorarios(linha, 'Sábados')">
-    Sábados
-  </button>
-  <button ion-button full on-click="goToHorarios(linha, 'Domingos')">
-    Domingos e Feriados
-  </button> -->
+
   <div class="divisorSup"></div>
   <ion-item class="selectors">
     <ion-label>Saída</ion-label>

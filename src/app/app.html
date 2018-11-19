@@ -7,14 +7,9 @@
 
   <ion-content>
     <ion-list>
-      <!-- <ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon [name]="p.icon" item-left></ion-icon>
-        {{p.title}}
-      </ion-item> -->
 
       <ion-item *ngIf="auth.authenticated">
         Olá,
-        <br />você está conectado com:
       </ion-item>
       <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}</ion-list-header>
 

@@ -1,14 +1,15 @@
-import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController } from "ionic-angular";
-import { HomePage } from "../home/home.page";
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NavController } from 'ionic-angular';
 
-import { AuthService } from "../../services/auth.service";
+import { HomePage } from '../home/home.page';
+import { PasswordValidation } from './pass-validator';
+import { AuthService } from '../../services/auth.service';
 import * as firebase from 'firebase/app';
 
 @Component({
-  selector: "as-page-signup",
-  templateUrl: "./signup.html"
+  selector: 'as-page-signup',
+  templateUrl: './signup.html'
 })
 export class SignupPage {
   signupError: string;
@@ -20,15 +21,13 @@ export class SignupPage {
     private auth: AuthService
   ) {
     this.form = fb.group({
-      email: ["", Validators.compose([Validators.required, Validators.email])],
-      password: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(6)])
-      ],
-      username: [
-        "",
-        Validators.compose([Validators.required, Validators.minLength(5)])
-      ]
+      email: ['', Validators.compose([Validators.required, Validators.email])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      username: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+      confirmPassword: ['', Validators.compose([Validators.required])]
+    },
+    {
+      validator: PasswordValidation.MatchPassword
     });
   }
 
@@ -46,16 +45,11 @@ export class SignupPage {
         }).then(function() {
           // Update successful.
         }).catch(function(error) {
-          // An error happened.
+          console.log(error);
         });
         this.navCtrl.setRoot(HomePage);
       },
       error => (this.signupError = error.message)
     );
-
-    // this.auth.signUp(credentials).then(
-    // 	() => this.navCtrl.setRoot(HomePage),
-    // 	error => this.signupError = error.message
-    // );
   }
 }

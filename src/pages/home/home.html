@@ -3,25 +3,30 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Blumenau Bus</ion-title>
+    <ion-title></ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="getting-started">
 
-  <div>
-    <button id="blumenauBus-button3" ion-button full on-click="goToLINHAS()">
+  <div class='align-center'>
+    <button id="blumenauBus-button3" ion-button round on-click="goToLINHAS()">
       <ion-icon name="search"></ion-icon>
-      Pesquisar linhas
+      Pesquisar
     </button>
   </div>
-  <div padding>
+  <div padding-vertical>
     <h2>Favoritos</h2>
-    <ion-list padding id="fav-list">
+    <ion-list id="fav-list">
+      <button class='btnLinhas' ion-button full *ngFor="let fav of favoritos" on-click="goToLinhaSelec(fav.cd_linha)">
+        <p> {{fav.cd_linha}} - {{fav.ds_linha}} </p>
+      </button>
+    </ion-list>
+    <!-- <ion-list padding id="fav-list">
         <ion-item *ngFor="let fav of favoritos" color="none" on-click="goToLinhaSelec(fav.cd_linha)">
           <p> {{fav.cd_linha}} - {{fav.ds_linha}} </p>
         </ion-item>
-      </ion-list>
+      </ion-list> -->
   </div>
 
 </ion-content>

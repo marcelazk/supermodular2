@@ -1,7 +1,7 @@
 {
   "rules": {
     "align": [
-      true,
+      false,
       "parameters",
       "arguments",
       "statements"
@@ -16,7 +16,7 @@
     "eofline": false,
     "forin": true,
     "indent": [
-      true,
+      false,
       "tabs"
     ],
     "interface-name": true,
