@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { NavParams } from 'ionic-angular';
+import { ToastController } from 'ionic-angular';
 
 import { Horarios } from '../horarios/horarios';
 import { Mapa } from '../mapa/mapa';
@@ -31,7 +32,7 @@ export class LINHASELECPage {
   keyFavorito = null;
   iconFav = 'star-outline';
 
-  constructor(public navCtrl: NavController, navParams: NavParams, private auth: AuthService) {
+  constructor(public navCtrl: NavController, navParams: NavParams, private auth: AuthService, public toastCtrl: ToastController) {
     this.linha = navParams.data.linha;
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
@@ -86,7 +87,9 @@ export class LINHASELECPage {
     const updates = {};
     updates['/favoritos/' + newFavKey] = postData;
 
-    return firebase.database().ref().update(updates);
+    return firebase.database().ref().update(updates).then(() =>{
+      this.presentToast('add');
+    });
   }
 
   deleteFavorito() {
@@ -94,6 +97,8 @@ export class LINHASELECPage {
       this.isFavorito = false;
       this.keyFavorito = null;
       this.iconFav = 'star-outline';
+
+      this.presentToast('remove');
     });
   }
 
@@ -103,5 +108,23 @@ export class LINHASELECPage {
       this.horarios = [];
       this.horarios = snapshotToArray(resp);
     });
+  }
+
+  presentToast(action) {
+    if (action === 'add') {
+      const toast = this.toastCtrl.create({
+        message: 'Linha adicionada aos favoritos!',
+        duration: 3000,
+        cssClass: 'toast-comp'
+      });
+      toast.present();
+    } else if (action === 'remove') {
+      const toast = this.toastCtrl.create({
+        message: 'Linha removida dos favoritos!',
+        duration: 3000,
+        cssClass: 'toast-comp'
+      });
+      toast.present();
+    }
   }
 }
