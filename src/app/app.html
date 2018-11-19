@@ -1,27 +1,31 @@
 <ion-menu id="leftMenu" [content]="content" type="overlay">
   <ion-header>
     <ion-toolbar>
-      <ion-title>Pages</ion-title>
+      <ion-title></ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <!-- <ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
-      </ion-item>
+      </ion-item> -->
 
+      <ion-item *ngIf="auth.authenticated">
+        Olá,
+        <br />você está conectado com:
+      </ion-item>
       <ion-list-header *ngIf="auth.getEmail()">{{auth.getEmail()}}</ion-list-header>
 
       <ion-item (click)="logout()" *ngIf="auth.authenticated">
         <ion-icon name="log-out" item-left></ion-icon>
-        Log out
+        Sair
       </ion-item>
 
       <ion-item (click)="login()" *ngIf="!auth.authenticated">
         <ion-icon name="log-in" item-left></ion-icon>
-        Log in
+        Entrar
       </ion-item>
 
     </ion-list>

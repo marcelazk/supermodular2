@@ -3,7 +3,7 @@
 		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Log in</ion-title>
+		<ion-title>Blumenau Bus</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -16,25 +16,24 @@
 			</ion-item>
 
 			<div ngxErrors="email" #emailErrors="ngxErrors">
-				<div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">It should be a valid email</div>
+				<div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Você deve informar um endereço de email válido.</div>
 			</div>
 
 			<ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched']) }">
-				<ion-input type="password" placeholder="Password" formControlName="password"></ion-input>
+				<ion-input type="password" placeholder="Senha" formControlName="password"></ion-input>
 			</ion-item>
 
 			<div ngxErrors="password" #passwordErrors="ngxErrors">
-				<div [ngxError]="['minlength', 'required']" [when]="['touched']">It should be at least 5 characters</div>
+				<div [ngxError]="['minlength', 'required']" [when]="['touched']">A senha deve possuir no mínimo 6 caracteres.</div>
 			</div>
 		</ion-list>
 
 		<div padding-horizontal>
 			<div class="form-error">{{loginError}}</div>
 
-			<button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
+			<button ion-button full type="submit" [disabled]="!loginForm.valid">Entrar</button>
 			<div class="login-footer">
 				<p>
-					<a href="#">Esqueceu sua senha?</a>
 					Se você é novo por aqui, cadastre-se.
 				</p>
 			</div>

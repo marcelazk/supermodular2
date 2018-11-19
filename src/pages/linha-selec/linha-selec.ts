@@ -22,15 +22,21 @@ export class LINHASELECPage {
   linha = null;
   cdLinha = null;
   dsLinha = null;
+  saidas = [];
+  horariosAux = null;
+  horarios = [];
+
   uid = null;
   isFavorito = false;
   keyFavorito = null;
+  iconFav = 'star-outline';
 
   constructor(public navCtrl: NavController, navParams: NavParams, private auth: AuthService) {
     this.linha = navParams.data.linha;
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
     this.uid = this.auth.getUID();
+    this.saidas = Object.keys(this.linha.saidas).map(key => this.linha.saidas[key]);
 
     this.ref.orderByChild('uid').equalTo(this.auth.getUID()).on('value', resp => {
       this.favoritos = [];
@@ -40,6 +46,7 @@ export class LINHASELECPage {
         if ((<any>Object).values(fav).includes(this.cdLinha)) {
           this.isFavorito = true;
           this.keyFavorito = fav.key;
+          this.iconFav = 'star';
         }
       });
     });
@@ -83,6 +90,18 @@ export class LINHASELECPage {
   }
 
   deleteFavorito() {
-    return firebase.database().ref('favoritos/' + this.keyFavorito).remove();
+    return firebase.database().ref('favoritos/' + this.keyFavorito).remove().then(() => {
+      this.isFavorito = false;
+      this.keyFavorito = null;
+      this.iconFav = 'star-outline';
+    });
+  }
+
+  async filtrarHorarios(tSaida, diaSemana) {
+    const refHor = await firebase.database().ref('linhas/').child(this.linha.key).child('horarios').child(diaSemana).child(tSaida);
+    refHor.orderByChild('ds_hora').on('value', resp => {
+      this.horarios = [];
+      this.horarios = snapshotToArray(resp);
+    });
   }
 }

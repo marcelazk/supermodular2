@@ -38,6 +38,10 @@ export class AuthService {
     return this.user.uid;
   }
 
+  getUsername() {
+    return this.user.displayName;
+  }
+
   // signInWithGoogle() {
 	// 	console.log('Sign in with google');
 	// 	return this.oauthSignIn(new firebase.auth.GoogleAuthProvider());

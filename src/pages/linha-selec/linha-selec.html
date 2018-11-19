@@ -1,35 +1,71 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      {{dsLinha}}
-    </ion-title>
-  </ion-navbar>
+  <ion-navbar> <ion-title> Blumenau Bus </ion-title> </ion-navbar>
 </ion-header>
 <ion-content padding id="pageLinhaSelec">
-  <div class="divisorFavButton">
-    <button ion-button outline icon-only *ngIf="isFavorito" on-click="deleteFavorito()">
-      <ion-icon name="star"></ion-icon>
+  <div>
+    <h3>{{ dsLinha }}</h3>
+  </div>
+  <div class="divisorButtons">
+    <button
+      ion-button
+      outline
+      icon-only
+      *ngIf="isFavorito"
+      on-click="deleteFavorito()"
+    >
+      <ion-icon class="favButton" name="{{iconFav}}"></ion-icon>
     </button>
-    <button ion-button outline icon-only *ngIf="!isFavorito" on-click="postFavorito(cdLinha, dsLinha)" >
-        <ion-icon name="star-outline"></ion-icon>
+    <button
+      ion-button
+      outline
+      icon-only
+      *ngIf="!isFavorito"
+      on-click="postFavorito(cdLinha, dsLinha)"
+    >
+      <ion-icon class="noFavButton" name="{{iconFav}}"></ion-icon>
+    </button>
+    <button ion-button outline icon-only on-click="goToMapa(linha)">
+      <ion-icon class="mapButton" name="map"></ion-icon>
+    </button>
+    <button ion-button outline icon-only on-click="goToComentarios(linha)">
+      <ion-icon class="comentButton" name="text"></ion-icon>
     </button>
   </div>
-  <button ion-button full outline icon-start on-click="goToMapa(linha)">
-    <ion-icon name="map"></ion-icon>
-    Consulte o trajeto
-  </button>
-  <button ion-button full outline icon-start on-click="goToComentarios(linha)">
-    <ion-icon name="text"></ion-icon>
-    Comentários
-  </button>
-  <div class="divisor"></div>
-  <button ion-button full on-click="goToHorarios(linha, 'Semana')">
+  <!-- <div class="divisor"></div>
+  <button ion-button full on-click="goToHorarios(linha, 'Dias Úteis')">
     Dias úteis
   </button>
-  <button ion-button full on-click="goToHorarios(linha, 'Sábado')">
+  <button ion-button full on-click="goToHorarios(linha, 'Sábados')">
     Sábados
   </button>
-  <button ion-button full on-click="goToHorarios(linha, 'Domingo')">
+  <button ion-button full on-click="goToHorarios(linha, 'Domingos')">
     Domingos e Feriados
-  </button>
+  </button> -->
+  <div class="divisorSup"></div>
+  <ion-item class="selectors">
+    <ion-label>Saída</ion-label>
+    <ion-select [(ngModel)]="saida">
+      <ion-option *ngFor="let sai of saidas" value="{{sai.ds_saida}}">{{
+        sai.ds_saida
+      }}</ion-option>
+    </ion-select>
+  </ion-item>
+  <ion-item class="selectors">
+    <ion-label>Dia da semana</ion-label>
+    <ion-select [(ngModel)]="diaSemana">
+      <ion-option value="Dias Úteis">Dias úteis</ion-option>
+      <ion-option value="Sábados">Sábados</ion-option>
+      <ion-option value="Domingos e Feriados">Domingos e Feriados</ion-option>
+    </ion-select>
+  </ion-item>
+  <div class="divisor">
+    <button ion-button small float-right round (click)="filtrarHorarios(saida, diaSemana)">Filtrar</button>
+  </div>
+  <div>
+    <ion-list padding id="horarios-list">
+      <button ion-button small *ngFor="let horario of horarios" color="none">
+        <p>{{ horario.ds_hora }}</p>
+      </button>
+    </ion-list>
+  </div>
 </ion-content>

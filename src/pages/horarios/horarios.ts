@@ -21,13 +21,13 @@ export class Horarios {
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
 
-    if (this.dia === 'Semana') {
+    if (this.dia === 'Dias Úteis') {
       this.horariosAux = this.linha.horarios.semana;
 
-    } else if (this.dia === 'Sábado') {
+    } else if (this.dia === 'Sábados') {
       this.horariosAux = this.linha.horarios.sabado;
 
-    } else if (this.dia === 'Domingo') {
+    } else if (this.dia === 'Domingos') {
       this.horariosAux = this.linha.horarios.domingo;
     }
 

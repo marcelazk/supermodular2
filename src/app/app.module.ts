@@ -42,7 +42,9 @@ import { Comentarios } from '../pages/comentarios/comentarios';
 	imports: [
 		BrowserModule,
 		HttpModule,
-		IonicModule.forRoot(MyApp),
+		IonicModule.forRoot(MyApp, {
+      backButtonText: ' '
+    }),
     AgmCoreModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
 		ComponentsModule,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-// import { FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { LINHASELECPage } from '../linha-selec/linha-selec';
 
@@ -15,6 +15,7 @@ export class LINHASPage {
   linhas = [];
   linhasAux = [];
   ref = firebase.database().ref('linhas/');
+  searchLinha;
 
   constructor(public navCtrl: NavController) {
     this.ref.on('value', resp => {

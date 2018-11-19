@@ -1,16 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      {{dsLinha}}
-    </ion-title>
+    <ion-title> {{ dsLinha }} </ion-title>
   </ion-navbar>
 </ion-header>
 <ion-content padding>
-  <h1> {{dia}} </h1>
+  <div>
+    <h3>{{ dsLinha }}</h3>
+  </div>
+  <h4>{{ dia }}</h4>
   <ion-list padding id="horarios-list">
     <ion-item *ngFor="let horario of horarios" color="none">
-      <p> {{horario.ds_hora}} </p>
+      <p>{{ horario.ds_hora }}</p>
     </ion-item>
   </ion-list>
-
 </ion-content>

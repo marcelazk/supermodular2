@@ -10,29 +10,116 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 
 @Component({
 	templateUrl: 'comentarios.html',
-	providers: []
+  providers: [],
+  selector: 'page-comentarios'
 })
 export class Comentarios {
 
   private nav: Nav;
 
-  comentarios = [];
-  ref = firebase.database().ref('comentarios/');
+  ref;
 
+  comentarios = [];
   linha = null;
   cdLinha = null;
   dsLinha = null;
+  message = '';
+
+  uid = null;
 
 	constructor(nav: Nav, private auth: AuthService, navParams: NavParams) {
     this.nav = nav;
+
+    this.uid = this.auth.getUID();
+
     this.linha = navParams.data.linha;
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
-
-    this.ref.orderByChild('cd_linha').equalTo(this.cdLinha).on('value', resp => {
+    this.ref = firebase.database().ref('linhas/').child(this.linha.key).child('comentarios');
+    this.ref.on('value', resp => {
       this.comentarios = [];
       this.comentarios = snapshotToArray(resp);
+      this.comentarios = this.comentarios.sort(function (a, b) {
+        if (a.dt_comentario > b.dt_comentario) {
+          return -1;
+        }
+        if (a.dt_comentario < b.dt_comentario) {
+          return 1;
+        }
+        // a must be equal to b
+        return 0;
+      });
     });
+  }
 
-	}
+  postComentario() {
+    const postData = {
+      ds_comentario: this.message,
+      dt_comentario: this.getDate(),
+      email: this.getEmailParte(),
+      uid: this.auth.getUID(),
+      username: this.auth.getUsername()
+    };
+
+    const newComentKey = firebase.database().ref().child('linhas').child(this.linha.key).child('comentarios').push().key;
+
+    const updates = {};
+    updates['/comentarios/' + newComentKey] = postData;
+
+    return firebase.database().ref().child('linhas').child(this.linha.key).update(updates).then(() => {
+      this.message = '';
+    });
+  }
+
+  getDate() {
+    const today = new Date();
+    const dd = today.getDate();
+    const mm = today.getMonth() + 1; //January is 0!
+    const yyyy = today.getFullYear();
+    const hh = today.getHours();
+    const min = today.getMinutes();
+
+    let day = '';
+    let month = '';
+    let currentDate = '';
+    let hour = '';
+    let minutes = '';
+
+    if (dd < 10) {
+      day = '0' + dd;
+    } else {
+      day = dd.toString();
+    }
+
+    if (mm < 10) {
+      month = '0' + mm;
+    } else {
+      month = mm.toString();
+    }
+
+    if (hh < 10 && hh > 0) {
+      hour = '0' + hh;
+    } else if (hh === 0) {
+      hour = '00';
+    } else {
+      hour = hh.toString();
+    }
+
+    if (min < 10 && min > 0) {
+      minutes = '0' + min;
+    } else if (min === 0) {
+      minutes = '00';
+    } else {
+      minutes = min.toString();
+    }
+
+    currentDate = day + '/' + month + '/' + yyyy + ' ' + hour + ':' + minutes;
+    return currentDate;
+  }
+
+  getEmailParte() {
+    let email = this.auth.getEmail();
+    email = email.substr(0, email.indexOf('@') + 1);
+    return email;
+  }
 }
