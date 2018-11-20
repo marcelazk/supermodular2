@@ -10,6 +10,7 @@
       ion-button
       outline
       icon-only
+      round
       *ngIf="isFavorito"
       on-click="deleteFavorito()"
     >
@@ -19,15 +20,16 @@
       ion-button
       outline
       icon-only
+      round
       *ngIf="!isFavorito"
       on-click="postFavorito(cdLinha, dsLinha)"
     >
       <ion-icon class="noFavButton" name="{{iconFav}}"></ion-icon>
     </button>
-    <button ion-button outline icon-only on-click="goToMapa(linha)">
+    <button ion-button outline icon-only round on-click="goToMapa(linha)">
       <ion-icon class="mapButton" name="map"></ion-icon>
     </button>
-    <button ion-button outline icon-only on-click="goToComentarios(linha)">
+    <button ion-button outline icon-only round on-click="goToComentarios(linha)">
       <ion-icon class="comentButton" name="text"></ion-icon>
     </button>
   </div>
