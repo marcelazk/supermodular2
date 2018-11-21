@@ -26,6 +26,8 @@ export class Mapa {
 
   dsSaida = null;
   saida = null;
+  latSaida = null;
+  lngSaida = null;
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
     this.linha = navParams.data.linha;
@@ -44,8 +46,13 @@ export class Mapa {
   }
 
   loadmap() {
+    this.latSaida = this.saida.cordSaida.lat;
+    this.lngSaida = this.saida.cordSaida.lng;
+
     this.pontos = [];
-    this.pontos = Object.keys(this.saida.pontos).map(key => this.saida.pontos[key]);
+    if (this.saida.pontos) {
+      this.pontos = Object.keys(this.saida.pontos).map(key => this.saida.pontos[key]);
+    }
 
     this.map = leaflet.map('map').fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -53,10 +60,7 @@ export class Mapa {
           'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
         maxZoom: 18
       }).addTo(this.map);
-    this.map.locate({
-      setView: true,
-      maxZoom: 30
-    });
+    this.map.setView(new leaflet.LatLng(this.latSaida, this.lngSaida), 15);
 
     for (let pt in this.pontos) {
       if (this.pontos[pt].lat && this.pontos[pt].lng) {

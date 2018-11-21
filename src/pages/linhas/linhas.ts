@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { FormsModule } from '@angular/forms';
+import { NavParams } from 'ionic-angular';
+import { Searchbar } from 'ionic-angular';
 
 import { LINHASELECPage } from '../linha-selec/linha-selec';
 
@@ -17,7 +19,8 @@ export class LINHASPage {
   ref = firebase.database().ref('linhas/');
   searchLinha;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, navParams: NavParams) {
+    this.searchLinha = navParams.data.txtSearch || '';
     this.ref.on('value', resp => {
       this.linhas = [];
       this.linhasAux = [];

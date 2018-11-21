@@ -28,11 +28,22 @@ export class HomePage {
   favoritos = [];
   ref = firebase.database().ref('favoritos/');
 
+  linhas = [];
+  linhasAux = [];
+  refLinhas = firebase.database().ref('linhas/');
+  searchLinha = '';
+
 	constructor(nav: Nav, private auth: AuthService) {
     this.nav = nav;
     this.ref.orderByChild('uid').equalTo(this.auth.getUID()).on('value', resp => {
       this.favoritos = [];
       this.favoritos = snapshotToArray(resp);
+    });
+    this.refLinhas.on('value', resp => {
+      this.linhas = [];
+      this.linhasAux = [];
+      //this.linhas = snapshotToArray(resp);
+      this.linhasAux = snapshotToArray(resp);
     });
 	}
 
@@ -40,14 +51,16 @@ export class HomePage {
 		this.nav.setRoot(tile.component);
   }
 
-  goToLINHAS(params) {
-    if (!params) {
-      params = {};
+  goToLINHAS(txtSearch) {
+    if (txtSearch) {
+      const params = {
+        txtSearch: txtSearch
+      };
+      this.nav.push(LINHASPage, params);
     }
-    this.nav.push(LINHASPage);
   }
 
-  goToLinhaSelec(cdLinha) {
+  goToLinhaSelecFav(cdLinha) {
     let linhas = [];
     const linhasRef = firebase.database().ref('linhas/');
     linhasRef.orderByChild('cd_linha').equalTo(cdLinha).on('value', resp => {
@@ -59,5 +72,24 @@ export class HomePage {
       };
       this.nav.push(LINHASELECPage, params);
     });
+  }
+
+  goToLinhaSelec(linha) {
+    const params = {
+      linha: linha
+    };
+    this.nav.push(LINHASELECPage, params);
+  }
+
+  filterLinhas() {
+    if (this.searchLinha) {
+      this.linhas = this.linhasAux;
+      this.linhas = this.linhasAux.filter((linha) => {
+          return linha.ds_linha.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1
+            || linha.cd_linha.toString().indexOf(this.searchLinha.toLowerCase()) > -1;
+      });
+    } else {
+      this.linhas = [];
+    }
   }
 }
