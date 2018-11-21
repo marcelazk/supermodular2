@@ -128,4 +128,8 @@ export class LINHASELECPage {
       toast.present();
     }
   }
+
+  isDisabledFiltrar(saida, diaSemana) {
+    return (!saida && !diaSemana) ? true : false;
+  }
 }

@@ -2,7 +2,7 @@
   <ion-navbar> <ion-title></ion-title> </ion-navbar>
 </ion-header>
 <ion-content padding id="pageLinhaSelec">
-  <div padding-vertical class="header-linha-selec">
+  <div padding-top class="header-linha-selec">
     <h4>{{ dsLinha }}</h4>
   </div>
   <div class="divisorButtons">
@@ -26,9 +26,9 @@
     >
       <ion-icon class="noFavButton" name="{{iconFav}}"></ion-icon>
     </button>
-    <button ion-button outline icon-only round on-click="goToMapa(linha, saida)">
+    <!-- <button ion-button outline icon-only round on-click="goToMapa(linha, saida)">
       <ion-icon class="mapButton" name="map"></ion-icon>
-    </button>
+    </button> -->
     <button ion-button outline icon-only round on-click="goToComentarios(linha)">
       <ion-icon class="comentButton" name="text"></ion-icon>
     </button>
@@ -52,13 +52,17 @@
     </ion-select>
   </ion-item>
   <div class="divisor">
-    <button ion-button small float-right round (click)="filtrarHorarios(saida, diaSemana)">Filtrar</button>
+    <button ion-button small float-right round [disabled]="!saida || !diaSemana" (click)="filtrarHorarios(saida, diaSemana)">Filtrar</button>
   </div>
+
   <div>
     <ion-list padding id="horarios-list">
-      <button ion-button small *ngFor="let horario of horarios" color="none">
+      <button ion-button small *ngFor="let horario of horarios" on-click="goToMapa(linha, saida)">
         <p>{{ horario.ds_hora }}</p>
       </button>
     </ion-list>
+
+    <p padding class="avisoHorarios" *ngIf="horarios.length == 0"> Não existem horários para este filtro! </p>
   </div>
+
 </ion-content>
