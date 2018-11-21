@@ -61,9 +61,10 @@ export class LINHASELECPage {
     this.navCtrl.push(Horarios, params);
   }
 
-  goToMapa(linha) {
+  goToMapa(linha, tSaida) {
     const params = {
-      linha: linha
+      linha: linha,
+      saida: tSaida
     };
     this.navCtrl.push(Mapa, params);
   }
