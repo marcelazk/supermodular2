@@ -1,10 +1,60 @@
 page-comentarios {
-  ion-textarea {
-    border-bottom: 1px solid #000000;
-    margin: 0px 5px;
-  }
-
   .header-linha-selec {
     text-align: center;
+  }
+
+  .footComentario {
+    display:inline-block;
+    position: relative;
+    width: 100%;
+  }
+
+  .mensagem {
+    padding-top: 5%;
+    p{
+      font-size: 13px;
+    }
+  }
+
+  .colunaBtn {
+    top: 2%;
+    right: 0px;
+    padding: 0px;
+  }
+
+  .colunaInfo {
+    display: block;
+    width: 100%;
+    p{
+      font-size: 11px;
+    }
+  }
+
+  .divComentario {
+    display:inline-block;
+    position: relative;
+    width: 100%;
+  }
+
+  .form-contact-textarea {
+    width: 85%;
+    color: #292929;
+    background-color: rgb(241, 238, 238);
+    border: 1px solid #E9E9E9;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 20%;
+    border-bottom: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    text-indent: 20px;
+    display: block;
+    font-size: 13px
+  }
+
+  .btnPost {
+    position: absolute;
+    bottom:25%;
+    right:10px;
   }
 }

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Nav } from 'ionic-angular';
+import { ActionSheetController } from 'ionic-angular';
 
 import { AuthService } from '../../services/auth.service';
 
@@ -27,7 +28,7 @@ export class Comentarios {
 
   uid = null;
 
-	constructor(nav: Nav, private auth: AuthService, navParams: NavParams) {
+	constructor(nav: Nav, private auth: AuthService, navParams: NavParams, public actionSheetCtrl: ActionSheetController) {
     this.nav = nav;
 
     this.uid = this.auth.getUID();
@@ -66,7 +67,7 @@ export class Comentarios {
     const updates = {};
     updates['/comentarios/' + newComentKey] = postData;
 
-    return firebase.database().ref().child('linhas').child(this.linha.key).update(updates).then(() => {
+    firebase.database().ref().child('linhas').child(this.linha.key).update(updates).then(() => {
       this.message = '';
     });
   }
@@ -121,5 +122,24 @@ export class Comentarios {
     let email = this.auth.getEmail();
     email = email.substr(0, email.indexOf('@') + 1);
     return email;
+  }
+
+  presentActionSheet(comentKey) {
+    const actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Excluir',
+          role: 'destructive',
+          handler: () => {
+            this.deleteComentario(comentKey);
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  deleteComentario(comentKey) {
+    return this.ref.child(comentKey).remove();
   }
 }

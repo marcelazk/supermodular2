@@ -3,37 +3,45 @@
 </ion-header>
 
 <ion-content padding>
-    <div padding-top class="header-linha-selec">
-      <h4>{{ dsLinha }}</h4>
-    </div>
+  <iframe name="hiddenFrame" class="hide"></iframe>
+  <div padding-top class="header-linha-selec">
+    <h4>{{ dsLinha }}</h4>
+  </div>
   <ion-card *ngFor="let coment of comentarios">
-    <ion-item>
-      <h5>Por: {{ coment.username }}</h5>
-      <p>E-mail: {{ coment.email }},  em {{ coment.dt_comentario }}</p>
-    </ion-item>
+    <button class="colunaBtn" ion-button icon-only clear small float-right *ngIf="coment.uid == uid" on-click="presentActionSheet(coment.key)">
+      <ion-icon name="more"></ion-icon>
+    </button>
     <ion-card-content>
-      <p>{{ coment.ds_comentario }}</p>
+      <div class="areaComent">
+        <div class="mensagem">
+          <p>{{ coment.ds_comentario }}</p>
+        </div>
+      </div>
     </ion-card-content>
 
-    <!-- <ion-row>
-      <ion-col>
-        <button ion-button icon-start clear small *ngIf="{{coment.uid}} === {{uid}}">
-          <ion-icon name="trash"> Remover </ion-icon>
-        </button>
+    <ion-row class="footComentario">
+      <ion-col class="colunaInfo">
+        <ion-item>
+          <p>{{ coment.username }} ({{ coment.email }})</p>
+          <p>{{ coment.dt_comentario }}</p>
+        </ion-item>
       </ion-col>
-    </ion-row> -->
+    </ion-row>
 
   </ion-card>
 </ion-content>
 
-<ion-footer padding>
-  <ion-textarea
-    [(ngModel)]="message"
-    type="text"
-    max="150"
-    placeholder="Faça seu comentário"
-  ></ion-textarea>
-  <button ion-button small float-right round (click)="postComentario()">
-    Enviar
-  </button>
+<ion-footer>
+  <div class="divComentario">
+    <ion-textarea
+      class="form-contact-textarea"
+      [(ngModel)]="message"
+      type="text"
+      max="150"
+      placeholder="Faça seu comentário"
+    ></ion-textarea>
+    <button class="btnPost" ion-button small float-right round icon-only on-click="postComentario()">
+      <ion-icon name="send"></ion-icon>
+    </button>
+  </div>
 </ion-footer>
