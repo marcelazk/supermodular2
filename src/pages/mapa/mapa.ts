@@ -36,7 +36,7 @@ export class Mapa {
 
     this.dsSaida = navParams.data.saida;
     this.ref = firebase.database().ref('linhas/').child(this.linha.key).child('saidas').orderByChild('ds_saida');
-    this.ref.equalTo(this.dsSaida).on('value', resp => {
+    this.ref.equalTo(this.dsSaida).once('value', resp => {
       this.saida = snapshotToArray(resp)[0];
     });
   }

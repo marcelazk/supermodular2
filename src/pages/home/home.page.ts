@@ -39,7 +39,7 @@ export class HomePage {
       this.favoritos = [];
       this.favoritos = snapshotToArray(resp);
     });
-    this.refLinhas.on('value', resp => {
+    this.refLinhas.once('value', resp => {
       this.linhas = [];
       this.linhasAux = [];
       //this.linhas = snapshotToArray(resp);
@@ -63,7 +63,7 @@ export class HomePage {
   goToLinhaSelecFav(cdLinha) {
     let linhas = [];
     const linhasRef = firebase.database().ref('linhas/');
-    linhasRef.orderByChild('cd_linha').equalTo(cdLinha).on('value', resp => {
+    linhasRef.orderByChild('cd_linha').equalTo(cdLinha).once('value', resp => {
       linhas = [];
       linhas = snapshotToArray(resp);
 

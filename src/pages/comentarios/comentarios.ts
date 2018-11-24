@@ -17,7 +17,7 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 export class Comentarios {
 
   private nav: Nav;
-  ref;
+  ref = firebase.database().ref('linhas/');
   comentarios = [];
   linha = null;
   cdLinha = null;
@@ -34,8 +34,7 @@ export class Comentarios {
     this.linha = navParams.data.linha;
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
-    this.ref = firebase.database().ref('linhas/').child(this.linha.key).child('comentarios');
-    this.ref.once('value', resp => {
+    this.ref.child(this.linha.key).child('comentarios').once('value', resp => {
       this.comentarios = [];
       this.comentarios = snapshotToArray(resp);
       this.comentarios = this.comentarios.sort(function (a, b) {
@@ -60,12 +59,7 @@ export class Comentarios {
       username: this.auth.getUsername()
     };
 
-    const newComentKey = firebase.database().ref().child('linhas').child(this.linha.key).child('comentarios').push().key;
-
-    const updates = {};
-    updates['/comentarios/' + newComentKey] = postData;
-
-    firebase.database().ref().child('linhas').child(this.linha.key).update(updates).then(() => {
+    this.ref.child(this.linha.key).child('comentarios').push(postData).then(() => {
       this.message = '';
     });
   }
@@ -138,6 +132,6 @@ export class Comentarios {
   }
 
   deleteComentario(comentKey) {
-    return this.ref.child(comentKey).remove();
+    this.ref.child(this.linha.key).child('comentarios').child(comentKey).remove();
   }
 }

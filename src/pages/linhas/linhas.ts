@@ -21,7 +21,7 @@ export class LINHASPage {
 
   constructor(public navCtrl: NavController, navParams: NavParams) {
     this.searchLinha = navParams.data.txtSearch || '';
-    this.ref.on('value', resp => {
+    this.ref.once('value', resp => {
       this.linhas = [];
       this.linhasAux = [];
       this.linhas = snapshotToArray(resp);

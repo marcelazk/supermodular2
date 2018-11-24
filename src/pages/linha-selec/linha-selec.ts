@@ -105,7 +105,7 @@ export class LINHASELECPage {
 
   async filtrarHorarios(tSaida, diaSemana) {
     const refHor = await firebase.database().ref('linhas/').child(this.linha.key).child('horarios').child(diaSemana).child(tSaida);
-    refHor.orderByChild('ds_hora').on('value', resp => {
+    refHor.orderByChild('ds_hora').once('value', resp => {
       this.horarios = [];
       this.horarios = snapshotToArray(resp);
     });
