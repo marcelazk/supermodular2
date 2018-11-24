@@ -1,39 +1,39 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title></ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding class="getting-started">
-
-  <div padding-vertical class='align-center'>
-    <!-- <button id="blumenauBus-button3" ion-button round on-click="goToLINHAS()">
-      <ion-icon name="search"></ion-icon>
-      Pesquisar
-    </button> -->
-    <ion-searchbar [(ngModel)]="searchLinha" (ionInput)="filterLinhas()" placeholder="Digite a linha desejada" name="linhas-search"
-      id="linhas-search">
-    </ion-searchbar>
-  </div>
-
-  <div padding-vertical *ngIf="!searchLinha">
-    <h2>Favoritos</h2>
-    <ion-list id="fav-list">
-      <button class='btnLinhas' ion-button full *ngFor="let fav of favoritos" on-click="goToLinhaSelecFav(fav.cd_linha)">
-        <p> {{fav.cd_linha}} - {{fav.ds_linha}} </p>
+    <ion-navbar>
+      <button ion-button menuToggle>
+        <ion-icon name="menu"></ion-icon>
       </button>
-    </ion-list>
-  </div>
+      <ion-title></ion-title>
+    </ion-navbar>
+  </ion-header>
 
-  <div padding-vertical *ngIf="searchLinha">
-    <ion-list id="linhas-list">
-      <button class='btnLinhas' ion-button full *ngFor="let linha of linhas" on-click="goToLinhaSelec(linha)">
-          <p> {{linha.cd_linha}} - {{linha.ds_linha}} </p>
-      </button>
-    </ion-list>
-  </div>
+  <ion-content padding class="getting-started">
+    <ion-segment [(ngModel)]="btnSegment" color="primary">
+      <ion-segment-button value="favoritos">
+        Favoritos
+      </ion-segment-button>
+      <ion-segment-button value="linhas">
+        Linhas
+      </ion-segment-button>
+    </ion-segment>
 
-</ion-content>
+    <div padding-vertical *ngIf="btnSegment == 'favoritos'">
+      <ion-list id="fav-list">
+        <button class='btnLinhas' ion-button full *ngFor="let fav of favoritos" on-click="goToLinhaSelecFav(fav.cd_linha)">
+          <p> {{fav.cd_linha}} - {{fav.ds_linha}} </p>
+        </button>
+      </ion-list>
+    </div>
+
+    <div padding-vertical class='align-center' *ngIf="btnSegment == 'linhas'">
+      <ion-searchbar [(ngModel)]="searchLinha" (ionInput)="filterLinhas()" placeholder="Digite a linha desejada" name="linhas-search"
+        id="linhas-search">
+      </ion-searchbar>
+      <ion-list padding-vertical id="linhas-list">
+        <button class='btnLinhas' ion-button full *ngFor="let linha of linhas" on-click="goToLinhaSelec(linha)">
+            <p> {{linha.cd_linha}} - {{linha.ds_linha}} </p>
+        </button>
+      </ion-list>
+    </div>
+
+  </ion-content>

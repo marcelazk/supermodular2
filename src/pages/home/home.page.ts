@@ -28,6 +28,8 @@ export class HomePage {
   favoritos = [];
   ref = firebase.database().ref('favoritos/');
 
+  btnSegment = 'favoritos';
+
   linhas = [];
   linhasAux = [];
   refLinhas = firebase.database().ref('linhas/');
@@ -42,7 +44,7 @@ export class HomePage {
     this.refLinhas.once('value', resp => {
       this.linhas = [];
       this.linhasAux = [];
-      //this.linhas = snapshotToArray(resp);
+      this.linhas = snapshotToArray(resp);
       this.linhasAux = snapshotToArray(resp);
     });
 	}
@@ -82,14 +84,10 @@ export class HomePage {
   }
 
   filterLinhas() {
-    if (this.searchLinha) {
-      this.linhas = this.linhasAux;
-      this.linhas = this.linhasAux.filter((linha) => {
-          return linha.ds_linha.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1
-            || linha.cd_linha.toString().indexOf(this.searchLinha.toLowerCase()) > -1;
-      });
-    } else {
-      this.linhas = [];
-    }
+    this.linhas = this.linhasAux;
+    this.linhas = this.linhasAux.filter((linha) => {
+        return linha.ds_linha.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1
+          || linha.cd_linha.toString().indexOf(this.searchLinha.toLowerCase()) > -1;
+    });
   }
 }
