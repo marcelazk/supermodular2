@@ -17,9 +17,7 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 export class Comentarios {
 
   private nav: Nav;
-
   ref;
-
   comentarios = [];
   linha = null;
   cdLinha = null;
@@ -37,7 +35,7 @@ export class Comentarios {
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
     this.ref = firebase.database().ref('linhas/').child(this.linha.key).child('comentarios');
-    this.ref.on('value', resp => {
+    this.ref.once('value', resp => {
       this.comentarios = [];
       this.comentarios = snapshotToArray(resp);
       this.comentarios = this.comentarios.sort(function (a, b) {
