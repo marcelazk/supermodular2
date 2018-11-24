@@ -34,6 +34,11 @@ export class Comentarios {
     this.linha = navParams.data.linha;
     this.cdLinha = this.linha.cd_linha;
     this.dsLinha = this.linha.ds_linha;
+
+    this.loadComentarios();
+  }
+
+  loadComentarios() {
     this.ref.child(this.linha.key).child('comentarios').once('value', resp => {
       this.comentarios = [];
       this.comentarios = snapshotToArray(resp);
@@ -61,6 +66,7 @@ export class Comentarios {
 
     this.ref.child(this.linha.key).child('comentarios').push(postData).then(() => {
       this.message = '';
+      this.loadComentarios();
     });
   }
 
@@ -132,6 +138,8 @@ export class Comentarios {
   }
 
   deleteComentario(comentKey) {
-    this.ref.child(this.linha.key).child('comentarios').child(comentKey).remove();
+    this.ref.child(this.linha.key).child('comentarios').child(comentKey).remove().then(() => {
+      this.loadComentarios();
+    });
   }
 }
