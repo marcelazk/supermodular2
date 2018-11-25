@@ -14,34 +14,8 @@ import * as firebase from 'Firebase';
 })
 export class LINHASPage {
 
-  linhas = [];
-  linhasAux = [];
-  ref = firebase.database().ref('linhas/');
-  searchLinha;
-
   constructor(public navCtrl: NavController, navParams: NavParams) {
-    this.searchLinha = navParams.data.txtSearch || '';
-    this.ref.once('value', resp => {
-      this.linhas = [];
-      this.linhasAux = [];
-      this.linhas = snapshotToArray(resp);
-      this.linhasAux = snapshotToArray(resp);
-    });
-  }
-
-  filterLinhas() {
-    this.linhas = this.linhasAux;
-    this.linhas = this.linhasAux.filter((linha) => {
-        return linha.ds_linha.toLowerCase().indexOf(this.searchLinha.toLowerCase()) > -1
-          || linha.cd_linha.toString().indexOf(this.searchLinha.toLowerCase()) > -1;
-    });
-  }
-
-  goToLinhaSelec(linha){
-    const params = {
-      linha: linha
-    };
-    this.navCtrl.push(LINHASELECPage, params);
+    // SCRIPT USADO APENAS PARA CHAMAR snapshotToArray EM OUTRAS PAGINAS.
   }
 
 }
