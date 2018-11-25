@@ -21,7 +21,6 @@ import * as firebase from 'Firebase';
 	providers: []
 })
 export class HomePage {
-	public tiles: Tile[][];
 
   private nav: Nav;
 
