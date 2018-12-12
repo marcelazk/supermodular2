@@ -57,7 +57,9 @@ export class Mapa {
     this.map = leaflet.map('map').fitWorld();
     leaflet.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attributions:
-          'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+          'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> /n' +
+          'contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> /n'
+          ', Imagery © <a href="http://mapbox.com">Mapbox</a>',
         maxZoom: 18
       }).addTo(this.map);
     this.map.setView(new leaflet.LatLng(this.latSaida, this.lngSaida), 15);
