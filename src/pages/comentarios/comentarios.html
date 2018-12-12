@@ -8,7 +8,8 @@
     <h4>{{ dsLinha }}</h4>
   </div>
   <ion-card *ngFor="let coment of comentarios">
-    <button class="colunaBtn" ion-button icon-only clear small float-right *ngIf="coment.uid == uid" on-click="presentActionSheet(coment.key)">
+    <button class="colunaBtn" ion-button icon-only clear small float-right
+            *ngIf="coment.uid == uid" on-click="presentActionSheet(coment.key)">
       <ion-icon name="more"></ion-icon>
     </button>
     <ion-card-content>
